@@ -214,11 +214,9 @@ export default function AboutPage() {
               Introduction to JBean
             </h2>
             <p className="text-slate-100 leading-relaxed text-lg max-w-3xl">
-              JBean is an innovative AI-driven platform that merges artificial
-              intelligence, Advanced Volume analysis, Social Sentiment analysis,
-              Fundamental analysis, and use of The Wisdom of Crowds human
-              interface to revolutionize predictive analytics in the crypto
-              market.
+              JBean is an innovative AI-driven platform that merges artificial intelligence, tehnical analysis with crowd wisdom to revolutionize predictive analytics in digital assets
+              markets. Our goal is simple human insight deserves a stage in a world overwhelmed by noise and automation. <br /> Our ecosystem is designed to reward participation and learning. Whether you are an expert trader or just starting out you can contribute and earn. 
+              Along with our prediction platform with ai analytics, We also have lessons by our master trader and our TV show with live competitions to help you grow, compete and earn rewards.
             </p>
           </Card>
         </div>

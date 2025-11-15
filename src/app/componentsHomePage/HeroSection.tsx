@@ -50,13 +50,12 @@ export function HeroSection() {
                 className="mb-4"
               />
               <h1 className="text-4xl md:text-5xl font-bold text-gradient-heading leading-tight">
-                Predict & Earn
+                Predict, Learn, Earn
               </h1>
             </div>
             <p className="text-lg text-content-secondary mb-8 max-w-xl">
-              Join our community a be part of catching the next
-              &apos;Black-Swan&apos; with help of AI, all the while learning and
-              earning.
+              Join our community where crowd wisdom meets AI Strategy and learning leads to earning.
+              <br />Be part of catching the next &apos;Black-Swan&apos; with us.
             </p>
 
             {!isAuthenticated ? (
