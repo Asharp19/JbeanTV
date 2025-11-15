@@ -1,0 +1,105 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = []
+  binaryTargets   = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type AgentPredictionsHistoryPastSevenPredictions {
+  ceoAgent       AgentPredictionsHistoryPastSevenPredictionsCeoAgent
+  lastUpdated    String
+  resultPrice    AgentPredictionsHistoryPastSevenPredictionsResultPrice
+  targetDate     String
+  technicalAgent AgentPredictionsHistoryPastSevenPredictionsTechnicalAgent
+  timestamp      String
+  wisdomOfCrowds AgentPredictionsHistoryPastSevenPredictionsWisdomOfCrowds
+}
+
+type AgentPredictionsHistoryPastSevenPredictionsCeoAgent {
+  close Float
+  high  Float
+  low   Float
+}
+
+type AgentPredictionsHistoryPastSevenPredictionsResultPrice {
+  close     Float?
+  fetchedAt String?
+  high      Float?
+  low       Float?
+  open      Float?
+  timestamp String?
+}
+
+type AgentPredictionsHistoryPastSevenPredictionsTechnicalAgent {
+  close Float
+  high  Float
+  low   Float
+}
+
+type AgentPredictionsHistoryPastSevenPredictionsWisdomOfCrowds {
+  close Float
+  high  Float
+  low   Float
+}
+
+type PredictionsMessagesCurrentAnalysis {
+  CeoAgent          String[]
+  CrowdAnalystAgent String[]
+  TechnicalAgent    String[]
+}
+
+model agent_predictions_history {
+  id                     String                                        @id @map("_id")
+  /// Field referred in an index, but found no data to define the type.
+  agent                  Json?
+  /// Field referred in an index, but found no data to define the type.
+  pair                   Json?
+  past_seven_predictions AgentPredictionsHistoryPastSevenPredictions[]
+  /// Field referred in an index, but found no data to define the type.
+  timestamp              Json?
+
+  @@index([pair, agent, timestamp(sort: Desc)], map: "pair_1_agent_1_timestamp_-1")
+}
+
+model prediction_leaderboard {
+  id             String @id @map("_id")
+  v              Int    @map("__v")
+  pair           String
+  predictedAt    String
+  predictedPrice Float
+  targetDate     String
+  walletAddress  String
+  walletType     String
+
+  @@index([pair], map: "pair_1")
+  @@index([walletAddress], map: "walletAddress_1")
+  @@index([targetDate], map: "targetDate_1")
+}
+
+model predictions {
+  /// Multiple data types found: String: 16.7%, String (ObjectId): 83.3% out of 6 sampled entries
+  id                      Json                               @id @map("_id")
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  CurrentPredictions      Json
+  /// Nested objects had no data in the sample dataset to introspect a nested type.
+  NextRoundPredictions    Json
+  lastUpdated             String
+  messagesCurrentAnalysis PredictionsMessagesCurrentAnalysis
+  symbol                  String                             @unique(map: "symbol_1")
+  targetDate              String
+}
+
+model users {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  v           Int      @map("__v")
+  createdAt   DateTime @db.Date
+  email       String   @unique(map: "email_1")
+  password    String
+  predictions Json?
+  updatedAt   DateTime @db.Date
+}
